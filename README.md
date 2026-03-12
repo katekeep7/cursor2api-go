@@ -86,6 +86,25 @@ go run main.go
 ## 🚀 服务器部署方式
 
 ### Docker 部署
+Docker-compose.yaml
+
+version: '3.8'
+
+services:
+  cursor2api:
+    # 将这里替换为你实际的镜像地址
+    # 如果是自己构建的，改为: ghcr.io/你的用户名/cursor2api-go:latest
+    image: ghcr.io/katekeep7/cursor2api-go:latest
+    
+    container_name: cursor2api-go
+    restart: unless-stopped
+    
+    ports:
+      - "8002:8002"  # 注意：确保镜像内部端口也是 8002，如果是 8080 请改为 "8002:8080"
+    
+    environment:
+      - API_KEY=zhou
+      - DEBUG=false
 
 1. **构建镜像**:
 ```bash
@@ -112,14 +131,24 @@ docker run -d --name cursor2api-go --restart unless-stopped -p 8002:8002 cursor2
 
 1. **使用 docker-compose.yml**:
 ```bash
-# 启动服务
-docker-compose up -d
 
-# 停止服务
-docker-compose down
+version: '3.8'
 
-# 查看日志
-docker-compose logs -f
+services:
+  cursor2api:
+    # 将这里替换为你实际的镜像地址
+    # 如果是自己构建的，改为: ghcr.io/你的用户名/cursor2api-go:latest
+    image: ghcr.io/katekeep7/cursor2api-go:latest
+    
+    container_name: cursor2api-go
+    restart: unless-stopped
+    
+    ports:
+      - "8002:8002"  # 注意：确保镜像内部端口也是 8002，如果是 8080 请改为 "8002:8080"
+    
+    environment:
+      - API_KEY=zhou
+      - DEBUG=false
 ```
 
 2. **自定义配置**:
